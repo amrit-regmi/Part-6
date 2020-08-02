@@ -1,4 +1,4 @@
-const anecdotesAtStart = [
+/*const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
   'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
@@ -16,15 +16,12 @@ const asObject = (anecdote) => {
     votes: 0
   }
 }
+*/
 
-export const addAnecdote = (content) => {
+export const addAnecdote = (data) => {
   return {
     type:'ADD',
-    data:{
-      content,
-      id:getId(),
-      votes:0
-    }
+    data
   }
 
 }
@@ -35,30 +32,39 @@ export const addVote = (id) => {
   }
 
 }
+export const initialize = (content) => {
+  return {
+    type:'INIT',
+    data: content
+  }
 
-const initialState = anecdotesAtStart.map(asObject)
+}
 
-const reducer = (state = initialState, action) => {
+//const initialState = anecdotesAtStart.map(asObject)
+
+const reducer = (state = [], action) => {
   console.log('state now: ', state)
   console.log('action', action)
- 
+
   switch(action.type){
-    case 'ADD':
-      return [...state,action.data]
-    
-    case 'VOTE':
-      const anecdotes = state.map(anecdote => {
+  case 'ADD':
+    return [...state,action.data]
+
+  case 'VOTE':
+    return (
+      state.map(anecdote => {
         if(anecdote.id === action.data.id){
           anecdote.votes+=1
         }
         return anecdote
-        }) 
-        
-       return anecdotes
-      
-    default: return state
+      }))
+  case 'INIT':
+    return action.data
+
+
+  default: return state
   }
-  
+
 }
 
 export default reducer

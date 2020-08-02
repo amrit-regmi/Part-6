@@ -1,4 +1,4 @@
-export const onFilterChange = (text) =>{
+export const onFilterChange = (text) => {
   return {
     type: 'FILTER',
     text
@@ -6,12 +6,12 @@ export const onFilterChange = (text) =>{
 
 }
 
-const filterReducer = (state = "", action) =>{
+const filterReducer = (state = '', action) => {
   switch (action.type){
-    case 'FILTER':
-      return action.text
-    
-    default: return state 
+  case 'FILTER':
+    return action.text
+
+  default: return state
   }
 }
 

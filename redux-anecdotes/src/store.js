@@ -1,4 +1,4 @@
-import { createStore ,combineReducers} from 'redux'
+import { createStore ,combineReducers } from 'redux'
 import reducer from './reducers/anecdoteReducer'
 import notificationReducer from './reducers/notificationReducer'
 import filterReducer from './reducers/filterReducer'
@@ -8,7 +8,7 @@ const mergeReducer = combineReducers({
   notification: notificationReducer,
   anectodes: reducer,
   filter:filterReducer,
-  
+
 })
 
 const store = createStore(mergeReducer,composeWithDevTools())

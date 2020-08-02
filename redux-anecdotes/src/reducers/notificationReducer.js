@@ -18,13 +18,13 @@ const notificationReducer = (state = notificationAtStart ,action) => {
 
 
   switch (action.type){
-    case 'NOTIFY':
-      return action.message
-    case 'REMOVE':
-      return null
-    default:
-      return state
+  case 'NOTIFY':
+    return action.message
+  case 'REMOVE':
+    return null
+  default:
+    return state
   }
-} 
+}
 
 export default notificationReducer
