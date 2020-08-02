@@ -1,15 +1,17 @@
 const notificationAtStart = null
 
-export const addNotification = (message) => {
-  return {
-    type:'NOTIFY',
-    message
-  }
-}
+export const addNotification = (message,timeout) => {
+  return async dispatch => {
+    dispatch ({
+      type:'NOTIFY',
+      message
+    })
 
-export const removeNotification = () => {
-  return {
-    type:'REMOVE',
+    setTimeout (() => {
+      dispatch({
+        type:'REMOVE',
+      })
+    },timeout)
   }
 }
 

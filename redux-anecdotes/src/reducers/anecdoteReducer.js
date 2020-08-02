@@ -18,26 +18,37 @@ const asObject = (anecdote) => {
 }
 */
 
+import anecdoteService from '../services/anecdotes'
+
 export const addAnecdote = (data) => {
-  return {
-    type:'ADD',
-    data
+  return async dispatch => {
+    const anecdote = await anecdoteService.addNew(data)
+    dispatch({
+      type:'ADD',
+      data: anecdote
+    })
+  }
+}
+
+export const addVote = (data) => {
+  return async dispatch => {
+
+    const anecdote = await anecdoteService.update({ ...data,votes:data.votes+1 })
+    dispatch({
+      type:'VOTE',
+      data : anecdote
+    })
   }
 
 }
-export const addVote = (id) => {
-  return {
-    type:'VOTE',
-    data:{ id }
+export const initialize = () => {
+  return async dispatch => {
+    const anecdotes = await  anecdoteService.getAll()
+    dispatch({
+      type:'INIT',
+      data: anecdotes
+    })
   }
-
-}
-export const initialize = (content) => {
-  return {
-    type:'INIT',
-    data: content
-  }
-
 }
 
 //const initialState = anecdotesAtStart.map(asObject)
@@ -54,7 +65,7 @@ const reducer = (state = [], action) => {
     return (
       state.map(anecdote => {
         if(anecdote.id === action.data.id){
-          anecdote.votes+=1
+          anecdote = action.data
         }
         return anecdote
       }))
