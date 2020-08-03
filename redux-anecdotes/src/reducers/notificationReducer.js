@@ -1,29 +1,29 @@
-const notificationAtStart = null
-
 export const addNotification = (message,timeout) => {
   return async dispatch => {
-    dispatch ({
-      type:'NOTIFY',
-      message
-    })
 
-    setTimeout (() => {
+    const timeoutid =  setTimeout (() => {
       dispatch({
         type:'REMOVE',
       })
-    },timeout)
+    },timeout * 1000)
+
+    dispatch ({
+      type:'NOTIFY',
+      data : {
+        message,
+        timeoutId: timeoutid
+      }
+    })
   }
 }
 
-const notificationReducer = (state = notificationAtStart ,action) => {
-
-
+const notificationReducer = (state = { message:null,timeoutId:null } ,action) => {
 
   switch (action.type){
   case 'NOTIFY':
-    return action.message
+    return action.data
   case 'REMOVE':
-    return null
+    return { message:null,timeoutId:null }
   default:
     return state
   }
