@@ -9,12 +9,12 @@ const Anecdoteform = () => {
   const create = async (event) => {
     event.preventDefault()
     const content = event.target.anecdote.value
-    event.target.anecdote.value =''
     const newContent = {
       content: content,
       votes:0
     }
     dispatch (addAnecdote(newContent))
+    event.target.anecdote.value =''
     dispatch(addNotification(`'${content}' is added`,5000))
   }
 
